@@ -1,5 +1,3 @@
-use std::io::Write;
-
 pub fn verse(n: i32) -> String {
     if n == 0 {
         "No more bottles of beer on the wall, no more bottles of beer.\nGo to the store and buy some more, 99 bottles of beer on the wall.\n".to_string()
@@ -13,12 +11,9 @@ pub fn verse(n: i32) -> String {
 }
 
 pub fn sing(start: i32, end: i32) -> String {
-    let mut buf = vec![];
-    for n in (end..=start).rev() {
-        write!(&mut buf, "{}", verse(n)).unwrap();
-        if n != end {
-            writeln!(&mut buf).unwrap();
-        }
-    }
-    String::from_utf8(buf).unwrap()
+    (end..=start)
+        .rev()
+        .map(verse)
+        .collect::<Vec<String>>()
+        .join("\n")
 }
