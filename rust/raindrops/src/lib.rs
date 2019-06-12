@@ -1,18 +1,18 @@
-use std::io::Write;
+use std::fmt::Write;
 
 pub fn raindrops(n: u32) -> String {
-    let mut bytes = vec![];
+    let mut results = String::new();
     if n % 3 == 0 {
-        write!(&mut bytes, "Pling").unwrap();
+        write!(&mut results, "Pling").unwrap();
     }
     if n % 5 == 0 {
-        write!(&mut bytes, "Plang").unwrap();
+        write!(&mut results, "Plang").unwrap();
     }
     if n % 7 == 0 {
-        write!(&mut bytes, "Plong").unwrap();
+        write!(&mut results, "Plong").unwrap();
     }
-    if bytes.is_empty() {
-        write!(&mut bytes, "{}", n).unwrap();
+    if results.is_empty() {
+        write!(&mut results, "{}", n).unwrap();
     }
-    String::from_utf8(bytes).unwrap()
+    results
 }
