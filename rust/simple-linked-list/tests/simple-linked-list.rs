@@ -79,3 +79,24 @@ fn test_into_vector() {
     let s_as_vec: Vec<i32> = s.into();
     assert_eq!(v, s_as_vec);
 }
+
+// tests for Bonus methods
+#[test]
+fn test_push_back() {
+    let mut list: SimpleLinkedList<u32> = SimpleLinkedList::new();
+    list.push_back(1);
+    list.push_back(2);
+    assert_eq!(list.pop(), Some(1), "Element must be 2");
+    assert_eq!(list.pop(), Some(2), "Element must be 1");
+    assert_eq!(list.pop(), None, "No element should be contained in list");
+}
+
+#[test]
+fn test_pop_back() {
+    let mut list: SimpleLinkedList<u32> = SimpleLinkedList::new();
+    list.push(1);
+    list.push(2);
+    assert_eq!(list.pop_back(), Some(1), "Element must be 2");
+    assert_eq!(list.pop_back(), Some(2), "Element must be 1");
+    assert_eq!(list.pop(), None, "No element should be contained in list");
+}

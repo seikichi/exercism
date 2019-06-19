@@ -53,13 +53,13 @@ impl<T> SimpleLinkedList<T> {
 
     pub fn pop_back(&mut self) -> Option<T> {
         let mut current = &mut self.head;
-        while current.is_some() {
-            if current.as_ref().unwrap().next.is_none() {
-                return current.take().map(|node| node.data);
+        loop {
+            match current {
+                Some(node) if node.next.is_none() => return current.take().map(|last| last.data),
+                Some(node) => current = &mut node.next,
+                None => return None,
             }
-            current = &mut current.as_mut().unwrap().next;
         }
-        None
     }
 }
 
