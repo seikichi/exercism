@@ -23,13 +23,14 @@ impl<T> SimpleLinkedList<T> {
     }
 
     pub fn push(&mut self, data: T) {
-        let next = self.head.take();
-        self.head = Some(Box::new(Node { data, next }));
+        self.head = Some(Box::new(Node {
+            data,
+            next: self.head.take(),
+        }));
     }
 
     pub fn pop(&mut self) -> Option<T> {
-        let head = self.head.take();
-        match head {
+        match self.head.take() {
             Some(node) => {
                 self.head = node.next;
                 Some(node.data)
