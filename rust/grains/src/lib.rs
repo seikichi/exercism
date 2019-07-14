@@ -3,6 +3,13 @@ pub fn total() -> u64 {
 }
 
 pub fn square(s: u32) -> u64 {
+    if s < 1 || 64 < s {
+        panic!("Square must be between 1 and 64");
+    }
+    1 << (s - 1)
+}
+
+pub fn square_without_shift(s: u32) -> u64 {
     // calculate b^n (b = 2, n = s - 1)
     //
     // https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book-Z-H-11.html#%_sec_1.2.4
