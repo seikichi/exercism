@@ -1,3 +1,5 @@
+#![feature(test)]
+
 // https://www.cs.princeton.edu/~rs/talks/LLRB/RedBlack.pdfcolor
 
 #[derive(Debug)]
@@ -119,6 +121,57 @@ impl<T: Ord> TreeSet<T> {
         if let Some(node) = &mut self.root {
             node.red = false;
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    extern crate test;
+    use super::*;
+    use test::Bencher;
+
+    #[bench]
+    fn bench_insert_1_to_1000(b: &mut Bencher) {
+        b.iter(|| {
+            let mut set = TreeSet::new();
+            for i in 1..=1000 {
+                set.insert(i);
+            }
+        });
+    }
+
+    #[bench]
+    fn bench_insert_1_to_10000(b: &mut Bencher) {
+        b.iter(|| {
+            let mut set = TreeSet::new();
+            for i in 1..=10000 {
+                set.insert(i);
+            }
+        });
+    }
+
+    #[bench]
+    fn bench_insert_random_1000_items(b: &mut Bencher) {
+        b.iter(|| {
+            let mut set = TreeSet::new();
+            let mut x = 1u32;
+            for _ in 0..1000 {
+                x = (48271 * x) % 0x7fffffff;
+                set.insert(x);
+            }
+        });
+    }
+
+    #[bench]
+    fn bench_insert_random_10000_items(b: &mut Bencher) {
+        b.iter(|| {
+            let mut set = TreeSet::new();
+            let mut x = 1u32;
+            for _ in 0..10000 {
+                x = (48271 * x) % 0x7fffffff;
+                set.insert(x);
+            }
+        });
     }
 }
 
